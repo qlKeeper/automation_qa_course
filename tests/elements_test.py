@@ -8,8 +8,8 @@ class TestElements:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, TextBoxPage.URL)
             text_box_page.open_url()
-            text_box_page.fill_all_fields()
-            output_name, output_email, output_cur_addr, output_per_addr = \
-            text_box_page.check_filled_form()
-            print(output_name, output_email, output_cur_addr, output_per_addr)
+            input_data = text_box_page.fill_all_fields()
+            output_data = text_box_page.check_filled_form()
+            assert input_data == output_data, 'Данные не сходятся'
+            
             time.sleep(3)
