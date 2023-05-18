@@ -1,5 +1,6 @@
 import sys; sys.path.append('../automation_qa_course/')
 from pages.elements_page import TextBoxPage
+from pages.elements_page import CheckBoxPage
 import time
 
 class TestElements:
@@ -13,3 +14,16 @@ class TestElements:
             assert input_data == output_data, 'Данные не сходятся'
             
             time.sleep(3)
+
+    class TestCheckBox:
+
+        def test_check_box(self, driver):
+            check_box_page = CheckBoxPage(driver, CheckBoxPage.URL)
+            check_box_page.open_url()
+            check_box_page.open_full_list()
+            check_box_page.click_random_checkbox()
+            input_checkbox = check_box_page.get_checked_checkbox()
+            output_result = check_box_page.get_output_result()
+            assert input_checkbox == output_result, 'Значения не совпадают'
+            
+            time.sleep(5)
