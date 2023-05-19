@@ -1,6 +1,7 @@
 import sys; sys.path.append('../automation_qa_course/')
 from pages.elements_page import TextBoxPage
 from pages.elements_page import CheckBoxPage
+from pages.elements_page import RadioButtonPage
 import time
 
 class TestElements:
@@ -26,4 +27,21 @@ class TestElements:
             output_result = check_box_page.get_output_result()
             assert input_checkbox == output_result, 'Значения не совпадают'
             
-            time.sleep(5)
+            time.sleep(3)
+
+    class TestRadioButton:
+        
+        def test_radio_button(self, driver):
+            radio_button_page = RadioButtonPage(driver, RadioButtonPage.URL)
+            radio_button_page.open_url()
+            radio_button_page.click_radio_btn('yes')
+            output_yes = radio_button_page.get_output_result()
+            radio_button_page.click_radio_btn('impressive')
+            output_impressive = radio_button_page.get_output_result()
+            radio_button_page.click_radio_btn('no')
+            output_no = radio_button_page.get_output_result()
+            
+            assert output_yes == 'Yes'
+            assert output_impressive == 'Impressive'
+            assert output_no == 'No'
+

@@ -2,7 +2,7 @@ from selenium.webdriver.support.wait import WebDriverWait as Wait
 from selenium.webdriver.support import expected_conditions as EC
 
 class BasePage:
-    def __init__(self, driver, url):
+    def __init__(self, driver, url: str):
         self.driver = driver
         self.url = url
 

@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from locators.elements_page_locators import TextBoxPageLocators
 from locators.elements_page_locators import CheckBoxPageLocators
+from locators.elements_page_locators import RadioButtonPageLocators
 from pages.base_page import BasePage
 from generator.generator import generated_person
 import random
@@ -26,6 +27,7 @@ class TextBoxPage(BasePage):
 
         return full_name, email, current_address, permament_address
     
+    
     def check_filled_form(self):
        full_name = self.element_is_present\
         (self.locators.CREATED_FULL_NAME).text.split(':')[1]
@@ -48,9 +50,11 @@ class CheckBoxPage(BasePage):
 
     locators = CheckBoxPageLocators()
 
+    
     def open_full_list(self):
         self.element_is_visible(self.locators.EXPAND_ALL_BTN).click()
 
+    
     def click_random_checkbox(self):
         item_list = self.all_elements_are_visible(self.locators.ITEM_LIST)
         count = 21
@@ -76,3 +80,22 @@ class CheckBoxPage(BasePage):
         for item in result_list:
             data.append(item.text)
         return str(data).lower().replace(' ', '')
+    
+
+class RadioButtonPage(BasePage):
+
+    URL = 'https://demoqa.com/radio-button'
+
+    locators = RadioButtonPageLocators()
+
+    
+    def click_radio_btn(self, choice):
+        choices = {'yes': self.locators.YES_BTN,
+                  'impressive': self.locators.IMPRESSIVE_BTN,
+                  'no': self.locators.NO_BTN,}
+
+        self.element_is_visible(choices[choice]).click()
+
+
+    def get_output_result(self) -> str:
+        return self.element_is_present(self.locators.OUTPUT_RESULT).text
