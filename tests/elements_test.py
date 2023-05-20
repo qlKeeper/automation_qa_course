@@ -1,7 +1,5 @@
 import sys; sys.path.append('../automation_qa_course/')
-from pages.elements_page import TextBoxPage
-from pages.elements_page import CheckBoxPage
-from pages.elements_page import RadioButtonPage
+from pages.elements_page import *
 import time
 
 class TestElements:
@@ -16,6 +14,7 @@ class TestElements:
             
             time.sleep(3)
 
+
     class TestCheckBox:
 
         def test_check_box(self, driver):
@@ -28,6 +27,7 @@ class TestElements:
             assert input_checkbox == output_result, 'Значения не совпадают'
             
             time.sleep(3)
+
 
     class TestRadioButton:
         
@@ -45,3 +45,11 @@ class TestElements:
             assert output_impressive == 'Impressive'
             assert output_no == 'No'
 
+
+    class TestWebTable:
+        
+        def test_web_table_add_person(self, driver):
+            web_table_page = WebTablePage(driver, WebTablePage.URL)
+            web_table_page.open_url()
+            web_table_page.add_new_person()
+            time.sleep(4)

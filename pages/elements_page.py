@@ -1,7 +1,5 @@
 from selenium.webdriver.common.by import By
-from locators.elements_page_locators import TextBoxPageLocators
-from locators.elements_page_locators import CheckBoxPageLocators
-from locators.elements_page_locators import RadioButtonPageLocators
+from locators.elements_page_locators import *
 from pages.base_page import BasePage
 from generator.generator import generated_person
 import random
@@ -88,8 +86,8 @@ class RadioButtonPage(BasePage):
 
     locators = RadioButtonPageLocators()
 
-    
-    def click_radio_btn(self, choice):
+
+    def click_radio_btn(self, choice: str):
         choices = {'yes': self.locators.YES_BTN,
                   'impressive': self.locators.IMPRESSIVE_BTN,
                   'no': self.locators.NO_BTN,}
@@ -99,3 +97,34 @@ class RadioButtonPage(BasePage):
 
     def get_output_result(self) -> str:
         return self.element_is_present(self.locators.OUTPUT_RESULT).text
+    
+
+class WebTablePage(BasePage):
+
+    URL = 'https://demoqa.com/webtables'
+
+    locators = WebTablePageLocators()
+
+
+    def add_new_person(self, count=1):
+        while count:
+            # Data for filds
+            person_info = next(generated_person())
+            firsname = person_info.firstname
+            lastname = person_info.lastname
+            email = person_info.email
+            age = person_info.age
+            salary = person_info.salary
+            department = person_info.department
+            # Actions
+            self.element_is_clickable(self.locators.ADD_BUTTON).click()
+            self.element_is_visible(self.locators.FIRSTNAME_INPUT).send_keys(firsname)
+            self.element_is_visible(self.locators.LASTNAME_INPUT).send_keys(lastname)
+            self.element_is_visible(self.locators.EMAIL_INPUT).send_keys(email)
+            self.element_is_visible(self.locators.AGE_INPUT).send_keys(age)
+            self.element_is_visible(self.locators.SALARY_INPUT).send_keys(salary)
+            self.element_is_visible(self.locators.DEPARTMENT_INPUT).send_keys(department)
+            self.element_is_clickable(self.locators.SUBMIT).click()
+            count -= 1
+            return firsname, lastname, email, age, salary, department
+
