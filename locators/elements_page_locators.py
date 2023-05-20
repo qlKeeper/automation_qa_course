@@ -38,7 +38,7 @@ class RadioButtonPageLocators:
 
 class WebTablePageLocators:
     
-    # Web Tables
+    # Add person form
     ADD_BUTTON = (By.XPATH, '//button[text()="Add"]')
     FIRSTNAME_INPUT = (By.XPATH, '//input[@id="firstName"]')
     LASTNAME_INPUT = (By.XPATH, '//input[@id="lastName"]')
@@ -47,3 +47,7 @@ class WebTablePageLocators:
     SALARY_INPUT = (By.XPATH, '//input[@id="salary"]')
     DEPARTMENT_INPUT = (By.XPATH, '//input[@id="department"]')
     SUBMIT = (By.XPATH, '//button[@id="submit"]')
+
+    # Table
+    FULL_PEOPLE_LIST = (By.XPATH, \
+    '//div[@class="rt-tr -even" or @class="rt-tr -odd"]//div[@role="gridcell"]')
