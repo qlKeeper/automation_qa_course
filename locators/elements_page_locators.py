@@ -51,3 +51,5 @@ class WebTablePageLocators:
     # Table
     FULL_PEOPLE_LIST = (By.XPATH, \
     '//div[@class="rt-tr -even" or @class="rt-tr -odd"]//div[@role="gridcell"]')
+    SEARCH_BOX = (By.XPATH, '//input[@id="searchBox"]')
+    DELETE_BUTTON = (By.XPATH, '//span[@title="Delete"]')

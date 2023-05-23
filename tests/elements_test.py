@@ -55,3 +55,11 @@ class TestElements:
             table_result = web_table_page.check_new_added_person()
             for item in new_person:
                 assert item in table_result, 'Данные не совпадают'
+
+
+        def test_web_table_search_person(self, driver):
+            web_table_page = WebTablePage(driver, WebTablePage.URL)
+            web_table_page.open_url()
+            key_word = web_table_page.add_new_person()[random.randint(0, 5)]
+            assert web_table_page.search_some_person(key_word), 'Человек не найден'
+            

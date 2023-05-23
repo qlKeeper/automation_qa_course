@@ -137,3 +137,15 @@ class WebTablePage(BasePage):
             data.append(item.text)
         
         return data
+    
+    
+    def search_some_person(self, key_word):
+        search_box = self.element_is_visible(self.locators.SEARCH_BOX)
+        search_box.click()
+        search_box.send_keys(key_word)
+        try:
+            self.element_is_visible(self.locators.FULL_PEOPLE_LIST, timeout=2)
+            return True
+        except:
+            return False
+    
