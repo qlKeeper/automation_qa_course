@@ -61,5 +61,6 @@ class TestElements:
             web_table_page = WebTablePage(driver, WebTablePage.URL)
             web_table_page.open_url()
             key_word = web_table_page.add_new_person()[random.randint(0, 5)]
-            assert web_table_page.search_some_person(key_word), 'Человек не найден'
+            result = web_table_page.search_some_person(key_word)
+            assert result, 'Человек не найден'
             
