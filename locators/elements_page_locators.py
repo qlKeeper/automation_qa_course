@@ -53,3 +53,6 @@ class WebTablePageLocators:
     '//div[@class="rt-tr -even" or @class="rt-tr -odd"]//div[@role="gridcell"]')
     SEARCH_BOX = (By.XPATH, '//input[@id="searchBox"]')
     DELETE_BUTTON = (By.XPATH, '//span[@title="Delete"]')
+    EDIT_BUTTON = (By.XPATH, '//span[@title="Edit"]')
+    ROW_COUNTS = (By.XPATH, '//div[@role="rowgroup"]')
+    ROW_COUNTS_BTN = (By.XPATH, '//select[@aria-label="rows per page"]')

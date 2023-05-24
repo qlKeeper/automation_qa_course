@@ -12,7 +12,7 @@ class TestElements:
             output_data = text_box_page.check_filled_form()
             assert input_data == output_data, 'Данные не сходятся'
             
-            time.sleep(3)
+            time.sleep(2)
 
 
     class TestCheckBox:
@@ -26,7 +26,7 @@ class TestElements:
             output_result = check_box_page.get_output_result()
             assert input_checkbox == output_result, 'Значения не совпадают'
             
-            time.sleep(3)
+            time.sleep(2)
 
 
     class TestRadioButton:
@@ -64,3 +64,29 @@ class TestElements:
             result = web_table_page.search_some_person(key_word)
             assert result, 'Человек не найден'
             
+
+        def test_web_table_update_person_info(self, driver):
+            web_table_page = WebTablePage(driver, WebTablePage.URL)
+            web_table_page.open_url()
+            last_name = web_table_page.add_new_person()[1]
+            web_table_page.search_some_person(last_name)
+            age = web_table_page.update_person_info()
+            assert web_table_page.search_some_person(age)
+            
+
+
+        def test_web_table_delete_person(self, driver):
+            web_table_page = WebTablePage(driver, WebTablePage.URL)
+            web_table_page.open_url()
+            email = web_table_page.add_new_person()[3]
+            web_table_page.search_some_person(email)
+            web_table_page.delete_person()
+            assert not(web_table_page.search_some_person(email))
+
+
+        def test_web_table_change_count_row(self, driver):
+            web_table_page = WebTablePage(driver, WebTablePage.URL)
+            web_table_page.open_url()
+            count = web_table_page.select_up_to_some_rows()
+            assert count == [5, 10, 20, 25, 50, 100], \
+                'Число строк не совпадает'

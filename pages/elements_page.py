@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from locators.elements_page_locators import *
 from pages.base_page import BasePage
 from generator.generator import generated_person
-import random
+import random, time
 
 
 class TextBoxPage(BasePage):
@@ -142,6 +142,7 @@ class WebTablePage(BasePage):
     def search_some_person(self, key_word):
         search_box = self.element_is_visible(self.locators.SEARCH_BOX)
         search_box.click()
+        search_box.clear()
         search_box.send_keys(key_word)
         try:
             self.element_is_visible(self.locators.FULL_PEOPLE_LIST, timeout=2)
@@ -149,3 +150,33 @@ class WebTablePage(BasePage):
         except:
             return False
     
+
+    def update_person_info(self):
+        person_info = next(generated_person())
+        age = person_info.age
+        self.element_is_visible(self.locators.EDIT_BUTTON).click()
+        self.element_is_visible(self.locators.AGE_INPUT).clear()
+        self.element_is_visible(self.locators.AGE_INPUT).send_keys(age)
+        self.element_is_visible(self.locators.SUBMIT).click()
+        return str(age)
+    
+    
+    def delete_person(self):
+        self.element_is_visible(self.locators.DELETE_BUTTON).click()
+
+
+    def select_up_to_some_rows(self):
+        count = (5, 10, 20, 25, 50, 100)
+        data = []
+        for i in count:
+            count_row_btn = self.element_is_visible(self.locators.ROW_COUNTS_BTN)
+            self.go_to_element(count_row_btn)
+            count_row_btn.click()
+            self.element_is_visible((By.XPATH, f'//option[@value="{i}"]')).click()
+            data.append(self.check_count_rows())
+        return data
+
+
+    def check_count_rows(self):
+        list_rows = self.all_elements_are_visible(self.locators.ROW_COUNTS)
+        return len(list_rows)
